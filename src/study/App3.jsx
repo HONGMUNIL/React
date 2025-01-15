@@ -4,33 +4,34 @@ function App3(props) {
 
     const [name, setName] = useState(""); //비어있는 문자열 표기 : ("");
     const [gender, setGender] = useState("");
-    const [nameInputText, setNameInputText] = useState("");
-    const [genderCheckedId, setGenderCheckedId] = useState("");
+    const [nameInputValue, setNameInputValue] = useState("");
+    const [genderInputValue, setGenderInputValue] = useState("male");
 
-    console.log(nameInputText);
+   
 
     const handleNameInputOnChange = (e) => {
-        setNameInputText(e.target.value)
+        setNameInputValue(e.target.value)
         
     }
     const handleOkOnClick = () => {
-        setName(nameInputText)
-        setNameInputText("")
+        setName(nameInputValue)
+        setNameInputValue("")
+        setGender(genderInputValue === "male" ? "남" : "여");
     }
 
-    const handleGenderOnChange = (e) => {
-
+    const handleGenderInputOnChange = (e) => {
+        setGenderInputValue(e.target.id);
     }
 
     return (
         <div>
-            <h1>이름 : {name}</h1>
-            <input type="text" onChange={handleNameInputOnChange} value={handleOkOnClick} />
+            <h1>이름 : {name}({gender})</h1>
+            <input type="text" onChange={handleNameInputOnChange} value={nameInputValue} />
             
-            <input type="radio" id="male" name="gender" value={"남"} />
+            <input type="radio" id="male" name="gender" checked={genderInputValue === "male"} onChange={handleGenderInputOnChange} value={"male"} />
             <label htmlFor="male">남</label>
             
-            <input type="radio" id="female" name="gender" value={"여"} />
+            <input type="radio" id="female" name="gender" checked={genderInputValue === "female"} onChange={handleGenderInputOnChange} value={"female"} />
             <label htmlFor="female">여</label>
             
             <button onClick={handleOkOnClick}>확인</button>
