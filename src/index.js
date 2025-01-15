@@ -1,13 +1,15 @@
 import ReactDOM from 'react-dom/client';
+import App2 from './study/App2';
 import App from './study/App';
+import App3 from './study/App3';
 //import App from './App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
- root.render(<App />); //보여지는것 렌더링
+// root.render(<App />); //보여지는것 렌더링
               //리액트에서 사용되는 태그들을 JSX라고한다
  
 
-
-
+//root.render(<App2 />);
+root.render(<App3 />);
 
 
 
