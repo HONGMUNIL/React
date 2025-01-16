@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
 function Signin({ userList }) {
 
-    
-
     const [signInInputValue, setSignInInputValue] = useState({
         username: "",
         password: "",
