@@ -1,15 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function App10(props) {
 
     const [ num1, setNum1] = useState(0);
     const [ num2, setNum2] = useState(0);
 
+    
+    const unmount =() =>{
+        console.log("장착해제됨");
+    }
+
+    const mount =() =>{
+        console.log("장착됨2");
+        return unmount;
+    }
+
+
+    useEffect(mount, []);
+
+    useEffect(() => {
+        setNum2(num1+100);
+    }, [num1] );
+
+    useEffect(() => {
+        console.log(num2);
+    },[num2])
+
+    useEffect(() => {
+        console.log(num1);
+        console.log(num2);
+    }, [num1, num2])
+
+    useEffect(()=>{
+        console.log("마운트");
+    }, [])
 
     const handleOnClick = () =>{
-
+        setNum1(num1 + 10);
     };
 
+    console.log("??????????");
 
     return (
         <div>
