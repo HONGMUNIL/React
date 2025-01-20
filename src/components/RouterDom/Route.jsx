@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
 
-function Route( { path, element } ) {
-    useEffect();
+function Route({ path, element }) {
 
-
-
-    
     return (
-        <div>
-            
-        </div>
+        <>
+            {
+                window.location.pathname === path && element
+            }
+        </>
     );
 }
 

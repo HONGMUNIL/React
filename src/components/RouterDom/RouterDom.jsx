@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Route from './Route';
 
-function RouterDom( {children} ) {
+function RouterDom({ children }) {
+    const [ pathname, setPathname ] = useState(window.location.pathname);  
 
-    
-    const [ pathname, setPathname ] = useState(window.location.pathname);
+    console.log(pathname)
 
-        useEffect(() => {
-            setPathname(window.location.pathname);
-
-        }, [window.location.pathname]);
-    
-    
+    useEffect(() => {
+        setPathname(window.location.pathname);
+    }, [window.location.pathname])
     
     return (
         <div>
-            <h1>
-                경로 저장
-            </h1>
+            {children}
         </div>
     );
 }
