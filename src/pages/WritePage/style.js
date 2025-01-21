@@ -22,3 +22,25 @@ export const headerLayout = css`
         }
     }
 `
+
+
+export const titleLayout = css`
+  
+    
+    width: 100%;
+
+    & > input{
+        box-sizing: border-box;
+        margin-bottom: 5px;
+        outline: none;
+        border: 1px solid #dbdbdb;
+        height: 40px;
+        padding: 12px 15px;
+        width: 100%;
+
+    }
+    `
+    
+    
+
+
