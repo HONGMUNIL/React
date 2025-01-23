@@ -1,17 +1,24 @@
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter, Routes } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 
 // import App2 from './study/App2';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient();
 
 root.render(
-  <BrowserRouter>
-      <App />
-  </BrowserRouter>
-);
+  <RecoilRoot> 
+    <QueryClientProvider client={queryClient}>
+       <BrowserRouter>
+          <App />
+       </BrowserRouter>
+    </QueryClientProvider>
+  </RecoilRoot>
+);//<RecoilRoot>는 Recoil을 설정한 atom파일을 전역으로 사용할수있다고 선언하는것  
 
 
 

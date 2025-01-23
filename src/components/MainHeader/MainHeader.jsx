@@ -1,8 +1,12 @@
 /**@jsxImportSource @emotion/react */
 import { Link } from 'react-router-dom';
 import * as s from './style';
-import React from 'react';
-import { LuUserRoundPlus, LuLogIn, LuLayoutList, LuNotebookPen } from "react-icons/lu";
+import React, { useEffect, useState } from 'react';
+import { LuUserRoundPlus, LuLogIn, LuLogOut, LuUser, LuLayoutList, LuNotebookPen } from "react-icons/lu";
+import { authUserIdAtomState } from '../../atoms/authAtom';
+import { useRecoilState } from 'recoil';
+import axios from 'axios';
+import { useQuery, useQueryClient } from 'react-query';
 // "name": "react_study",
 // "version": "0.1.0",
 // "private": true,
@@ -20,6 +24,31 @@ import { LuUserRoundPlus, LuLogIn, LuLayoutList, LuNotebookPen } from "react-ico
 //   "react-scripts": "5.0.1",
 //   "web-vitals": "^4.2.4" package.json 파일에 버전 확인해야함 icons, emotion, dom, axios 등
 function MainHeader({ props }) {
+    const queryClient = useQueryClient();
+   
+    const userId = queryClient.getQueryData(["authenticatedUserQuery"])?.data.body;
+    // const [loadStatus, setLoadStatus] = useState("idle"); //loading(로딩중), success(완료), idle(대기상태)
+
+    const getUserApi = async () => {
+        return await axios.get("http://localhost:8080/servlet_study_war/api/user", {
+            headers: { //인증요청엔 headers 붙인다다
+                "Authorization": "Bearer " + localStorage.getItem("AccessToken"),
+            },
+            params: {
+                "userId": userId,
+            }
+        });
+    }
+ 
+    const getUserQuery = useQuery(
+        ["getUserQuery", userId],
+        getUserApi,
+        {
+            refetchOnWindowFocus:false,
+            enabled: !!userId,
+        }
+    );
+
     return (
         <div css={s.layout}>
             <div css={s.leftContainer}>
@@ -39,18 +68,34 @@ function MainHeader({ props }) {
             </div>
 
             <div css={s.rightContainer}>
-                <ul>
-                    <Link to={"/signin"}>
-                        <li>
-                            <LuLogIn />로그인
-                        </li>
-                    </Link>
-                    <Link to={"/signup"}>
-                        <li>
-                            <LuUserRoundPlus />회원 가입
-                        </li>
-                    </Link>
-                </ul>
+                {
+                    !!userId ?
+                        <ul>
+                            <Link to={"/mypage"}>
+                                <li>
+                                    <LuUser />{getUserQuery.isLoading ? "" : getUserQuery.data.data.username}
+                                </li>
+                            </Link>
+                            <Link to={"/logout"}>
+                                <li>
+                                    <LuLogOut />로그 아웃
+                                </li>
+                            </Link>
+                        </ul>
+                        :
+                        <ul>
+                            <Link to={"/signin"}>
+                                <li>
+                                    <LuLogIn />로그인
+                                </li>
+                            </Link>
+                            <Link to={"/signup"}>
+                                <li>
+                                    <LuUserRoundPlus />회원 가입
+                                </li>
+                            </Link>
+                        </ul>
+                }
             </div>
         </div>
     );
