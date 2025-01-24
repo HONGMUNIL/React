@@ -15,14 +15,14 @@ import { useQuery } from "react-query";
 
 function App() {//useState(0)이라는것은 로그인이 안된 것(로그아웃상태)
   // const [userId, setUserId ] = useRecoilState(authUserIdAtomState);//authUserIdAtomState(전역상태)를 가져와서 다른곳에도사용가능
-  const location = useLocation(); //경로확인
+  // const location = useLocation(); //경로확인
 
 
   const authenticatedUser = async () =>{
    
     return await axios.get("http://localhost:8080/servlet_study_war/api/authenticated", {
         headers:{
-          "Authorization":`Bearer ${localStorage.getItem("AccessToken")}`,
+          "Authorization":`Bearer ${localStorage.getItem("AccessToken")}`, //요청 날릴때 isLoading
         }//headers의 키값은 Authorization로 정해져있다
       });
   }

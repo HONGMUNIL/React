@@ -73,7 +73,7 @@ function MainHeader({ props }) {
                         <ul>
                             <Link to={"/mypage"}>
                                 <li>
-                                    <LuUser />{getUserQuery.isLoading ? "" : getUserQuery.data.data.username}
+                                    <LuUser />{getUserQuery.isLoading ? "" : getUserQuery.data.data.body.username}
                                 </li>
                             </Link>
                             <Link to={"/logout"}>
